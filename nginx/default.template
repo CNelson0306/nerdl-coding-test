@@ -1,0 +1,105 @@
+upstream api {
+    server ${UPSTREAM_API};
+}
+
+server {
+    server_name ${SERVER_NAME_API};
+    client_max_body_size 64m;
+    location = /healthz {
+        default_type text/plain;
+        return 200 "healthy\n";
+    }
+    location / {
+        if (${DOLLAR}request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+            add_header 'Access-Control-Allow-Origin' '${ACCESS_CONTROL_ALLOW_ORIGIN}' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+            #
+            # Custom headers and headers various browsers *should* be OK with but aren't
+            #
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            #
+            # Tell client that this pre-flight info is valid for 20 days
+            #
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+        }
+        if (${DOLLAR}request_method = 'POST') {
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+            add_header 'Access-Control-Allow-Origin' '${ACCESS_CONTROL_ALLOW_ORIGIN}' always;
+            add_header 'Access-Control-Allow-Methods' 'POST, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range' always;
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
+        }
+        if (${DOLLAR}request_method = 'GET') {
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+            add_header 'Access-Control-Allow-Origin' '${ACCESS_CONTROL_ALLOW_ORIGIN}' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range' always;
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
+        }
+        if (${DOLLAR}request_method = 'PUT') {
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+            add_header 'Access-Control-Allow-Origin' '${ACCESS_CONTROL_ALLOW_ORIGIN}' always;
+            add_header 'Access-Control-Allow-Methods' 'PUT, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range' always;
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
+        }
+        if (${DOLLAR}request_method = 'DELETE') {
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+            add_header 'Access-Control-Allow-Origin' '${ACCESS_CONTROL_ALLOW_ORIGIN}' always;
+            add_header 'Access-Control-Allow-Methods' 'DELETE, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range' always;
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
+        }
+        proxy_set_header Host ${DOLLAR}host;
+        proxy_pass http://api;
+    }
+    listen 80;
+}
+
+upstream web {
+    server ${UPSTREAM_WEB};
+}
+
+server {
+    server_name ${SERVER_NAME_WEB};
+    client_max_body_size 64m;
+    location = /healthz {
+        default_type text/plain;
+        return 200 "healthy\n";
+    }
+    location / {
+
+        gzip on;
+        gzip_vary on;
+        gzip_proxied any;
+        gzip_comp_level 6;
+        gzip_buffers 16 8k;
+        gzip_http_version 1.1;
+        gzip_types text/plain text/css application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+        proxy_hide_header 'Access-Control-Allow-Origin';
+        proxy_hide_header 'Access-Control-Allow-Methods';
+
+        more_clear_headers Server;
+        add_header 'X-Frame-Options' 'SAMEORIGIN';
+        add_header 'X-Content-Type-Options' nosniff;
+        add_header 'X-XSS-Protection' '1; mode=block';
+        add_header 'Strict-Transport-Security' 'max-age=31536000; includeSubDomains' always;
+        add_header 'Referrer-Policy' 'strict-origin';
+        add_header 'Permissions-Policy' 'sync-xhr=(), fullscreen=(self)';
+        add_header 'Content-Security-Policy' "default-src 'self' ${SERVER_NAME_API}; script-src 'self' 'sha256-OTIhw6YWklg/z1WKja025Ahx/znXxY8ZUsvON1tbTBM=' 'sha256-2+XGEMXpCAEOfMgTZWYTxVVJbSkmSDUKEnoOdB27OpA='; img-src data: 'self'; style-src 'self' cdn.jsdelivr.net 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='; font-src 'self'; frame-src 'self'";
+        add_header 'Access-Control-Allow-Origin' '${ACCESS_CONTROL_ALLOW_ORIGIN}' always;
+
+        expires 30d;
+        add_header Pragma "public";
+        add_header Cache-Control "public";
+
+        proxy_set_header Host ${DOLLAR}host;
+        proxy_pass http://web;
+    }
+    listen 80;
+}

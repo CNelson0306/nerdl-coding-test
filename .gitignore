@@ -1,0 +1,46 @@
+# MySQL data directory
+mysql/data/
+
+# Node modules
+node_modules/
+webapp/node_modules/
+
+# Environment variables
+
+
+# Build outputs
+webapp/public/bundle.js
+webapp/public/bundle.js.map
+webapp/public/bundle.js.LICENSE.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+
+mysql/data/

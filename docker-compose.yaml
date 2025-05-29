@@ -1,0 +1,97 @@
+services:
+
+  db:
+    container_name: db
+    restart: always
+    image: ${IMG_PREFIX}-${STAGE}-db:latest
+    build:
+      context: .
+      dockerfile: db/Dockerfile
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+
+  api-migrations:
+    container_name: api-migrations
+    image: ${IMG_PREFIX}-${STAGE}-api-migrations:latest
+    build:
+      context: ./api-migrations
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_ROOT_USER: ${MYSQL_ROOT_USER}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api:
+    container_name: api
+    image: ${IMG_PREFIX}-${STAGE}-api:latest
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      PROTOCOL: ${PROTOCOL}
+      DOMAIN: ${DOMAIN}
+      STAGE: ${STAGE}
+    depends_on:
+      api-migrations:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  web:
+    container_name: web
+    image: ${IMG_PREFIX}-${STAGE}-web:latest
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+      args:
+        BASE_URL_WEB: ${BASE_URL_WEB}
+        BASE_URL_API: ${BASE_URL_API}
+    environment:
+      BASE_URL_WEB: ${BASE_URL_WEB}
+      BASE_URL_API: ${BASE_URL_API}
+    depends_on:
+      - api
+
+  nginx:
+    depends_on:
+      - web
+      - api
+    container_name: nginx
+    image: ${IMG_PREFIX}-${STAGE}-nginx
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    environment:
+      UPSTREAM_API: ${UPSTREAM_API}
+      SERVER_NAME_API: ${SERVER_NAME_API}
+      UPSTREAM_WEB: ${UPSTREAM_WEB}
+      SERVER_NAME_WEB: ${SERVER_NAME_WEB}
+      ACCESS_CONTROL_ALLOW_ORIGIN: ${ACCESS_CONTROL_ALLOW_ORIGIN}
+      DOLLAR: ${DOLLAR}
+    ports:
+      - "80:80"
