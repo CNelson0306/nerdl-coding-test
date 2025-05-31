@@ -1,3 +1,5 @@
+"""
+
 import falcon
 import json
 import pymysql
@@ -75,3 +77,5 @@ class NewsArticles:
         }
         resp.body = json.dumps(_response)
         resp.status = falcon.HTTP_OK
+
+"""
