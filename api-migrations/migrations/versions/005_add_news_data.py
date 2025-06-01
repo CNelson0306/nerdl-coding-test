@@ -1,8 +1,9 @@
 
-
 from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.sql import func
+
+import datetime
 
 # Revision identifiers
 revision = '005'
@@ -20,7 +21,7 @@ def upgrade():
                 "author": "Jane Doe",
                 "category": "Tech",
                 "image_base64": None,
-                "published_date": 2025,
+                "published_date": datetime.date(2025, 1, 1)
             },
             {
                 "title": "React Leads The Way",
@@ -28,7 +29,7 @@ def upgrade():
                 "author": "Bob",
                 "category": "Development",
                 "image_base64": None,
-                "published_date": 2025
+                "published_date": datetime.date(2025, 1, 1)
             },
             {
                 "title": "Engineering Solutions Driving Results",
@@ -36,7 +37,7 @@ def upgrade():
                 "author": "John Doe",
                 "category": "Business",
                 "image_base64": None,
-                "published_date": 2025
+                "published_date": datetime.date(2025, 1, 1)
             },
             {
                 "title": "Blockchain Solutions Driving Real-World Impact",
@@ -44,7 +45,7 @@ def upgrade():
                 "author": "Sue Doe",
                 "category": "Crypto",
                 "image_base64": None,
-                "published_date": 2025
+                "published_date": datetime.date(2025, 1, 1)
             }
         ]
 
