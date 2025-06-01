@@ -15,33 +15,34 @@ def upgrade():
 
     articles = [
             {
-                "title1": "Breaking News: Falcon Takes Off",
-                "excerpt1": "Falcon framework simplifies web APIs.",
-                "author1": "Jane Doe",
-                "category1": "Tech",
-                "image1": None,
-                "published1": 2025,
+                "title": "Breaking News: Falcon Takes Off",
+                "excerpt": "Falcon framework simplifies web APIs.",
+                "author": "Jane Doe",
+                "category": "Tech",
+                "image": None,
+                "published": 2025,
             },
             {
-                "title2": "React Leads The Way",
-                "excerpt2": "Why React is being used by so many employers.",
-                "author2": "Bob",
-                "category2": "Development",
-                "image2": None,
-                "published2": 2025,
+                "title": "React Leads The Way",
+                "excerpt": "Why React is being used by so many employers.",
+                "author": "Bob",
+                "category": "Development",
+                "image": None,
+                "published": 2025,
             },
             {
-                "title3": "Engineering Solutions Driving Results",
-                "excerpt3": "Tech company specialising in building scalable software solutions.",
-                "author3": "John Doe",
-                "category3": "Business",
-                "image3": None,
-                "published3": 2025,
+                "title": "Engineering Solutions Driving Results",
+                "excerpt": "Tech company specialising in building scalable software solutions.",
+                "author": "John Doe",
+                "category": "Business",
+                "image": None,
+                "published": 2025,
             },
             {
                 "title4": "Blockchain Solutions Driving Real-World Impact",
                 "excerpt4": "Cryto giants building secure, scalable blockchain infrastructure",
                 "author4": "Sue Doe",
+                "category": "Crypto"
                 "image4": None,
                 "published4": 2025
             }
