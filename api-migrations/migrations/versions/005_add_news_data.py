@@ -39,12 +39,12 @@ def upgrade():
                 "published": 2025,
             },
             {
-                "title4": "Blockchain Solutions Driving Real-World Impact",
-                "excerpt4": "Cryto giants building secure, scalable blockchain infrastructure",
-                "author4": "Sue Doe",
+                "title": "Blockchain Solutions Driving Real-World Impact",
+                "excerpt": "Cryto giants building secure, scalable blockchain infrastructure",
+                "author": "Sue Doe",
                 "category": "Crypto"
-                "image4": None,
-                "published4": 2025
+                "image": None,
+                "published": 2025
             }
         ]
 
