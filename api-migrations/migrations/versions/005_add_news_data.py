@@ -5,7 +5,7 @@ import sqlalchemy as sa
 from sqlalchemy.sql import func
 
 # Revision identifiers
-revision = '004'
+revision = '005'
 down_revision = '004'
 branch_labels = None
 depends_on = None
