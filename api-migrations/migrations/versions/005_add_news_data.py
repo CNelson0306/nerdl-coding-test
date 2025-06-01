@@ -19,32 +19,32 @@ def upgrade():
                 "excerpt": "Falcon framework simplifies web APIs.",
                 "author": "Jane Doe",
                 "category": "Tech",
-                "image": None,
-                "published": 2025,
+                "image_base64": None,
+                "published_date": 2025,
             },
             {
                 "title": "React Leads The Way",
                 "excerpt": "Why React is being used by so many employers.",
                 "author": "Bob",
                 "category": "Development",
-                "image": None,
-                "published": 2025,
+                "image_base64": None,
+                "published_date": 2025
             },
             {
                 "title": "Engineering Solutions Driving Results",
                 "excerpt": "Tech company specialising in building scalable software solutions.",
                 "author": "John Doe",
                 "category": "Business",
-                "image": None,
-                "published": 2025,
+                "image_base64": None,
+                "published_date": 2025
             },
             {
                 "title": "Blockchain Solutions Driving Real-World Impact",
                 "excerpt": "Cryto giants building secure, scalable blockchain infrastructure",
                 "author": "Sue Doe",
-                "category": "Crypto"
-                "image": None,
-                "published": 2025
+                "category": "Crypto",
+                "image_base64": None,
+                "published_date": 2025
             }
         ]
 
