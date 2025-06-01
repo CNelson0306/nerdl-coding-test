@@ -1,3 +1,5 @@
+
+
 from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.sql import func
@@ -28,7 +30,7 @@ def upgrade():
                     :title4, :excerpt4, :author4, :category4, :image4, :published4
                 ),
             """),
-            {
+           {
                 "title1": "Breaking News: Falcon Takes Off",
                 "excerpt1": "Falcon framework simplifies web APIs.",
                 "author1": "Jane Doe",
@@ -62,6 +64,7 @@ def downgrade():
     op.drop_table('articles') 
 
     
+
 
 
 
