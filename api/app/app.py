@@ -44,6 +44,8 @@ app.add_route('/public/courses/{course_id}', courses)
 
 # News Article
 
-app.add_route('/articles', NewsArticles())
-app.add_route('/articles{article_id}', NewsArticles())
+print("Before adding news articles route...")
+
+app.add_route('/public/articles', NewsArticles())
+app.add_route('/public/articles{article_id}', NewsArticles())
 
