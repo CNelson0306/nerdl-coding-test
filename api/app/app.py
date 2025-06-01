@@ -7,7 +7,7 @@ from Resources.HealthCheck import HealthCheckResource
 from Resources.Courses import Courses
 
 
-from Resources import NewsArticles
+#from Resources import NewsArticles
 
 
 # Middleware
@@ -46,6 +46,6 @@ app.add_route('/public/courses/{course_id}', courses)
 
 print("Before adding news articles route...")
 
-app.add_route('/public/articles', NewsArticles())
-app.add_route('/public/articles{article_id}', NewsArticles())
+#app.add_route('/public/articles', NewsArticles())
+#app.add_route('/public/articles{article_id}', NewsArticles())
 
