@@ -6,8 +6,8 @@ from Middleware.HandleCORS import HandleCORS
 from Resources.HealthCheck import HealthCheckResource
 from Resources.Courses import Courses
 
-# Import NewsArticles class
-from Resources.NewsArticles import NewsArticles
+
+from api.app.Resources import NewsArticles
 
 
 # Middleware
