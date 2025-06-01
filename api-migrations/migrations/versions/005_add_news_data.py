@@ -51,7 +51,7 @@ def upgrade():
     connection.execute(
         sa.text("""
             INSERT INTO news_articles (title, excerpt, author, category, image_base64, published_date)
-            VALUES (:title, :excerpt, :author, :category, :image, :published)
+            VALUES (:title, :excerpt, :author, :category, :image_base64, :published)
         """),
         articles
     )
