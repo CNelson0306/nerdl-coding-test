@@ -6,8 +6,8 @@ from Middleware.HandleCORS import HandleCORS
 from Resources.HealthCheck import HealthCheckResource
 from Resources.Courses import Courses
 
-
-#from Resources import NewsArticles
+# Import the news articles class
+from Resources.NewsArticles import NewsArticles
 
 
 # Middleware
@@ -44,8 +44,8 @@ app.add_route('/public/courses/{course_id}', courses)
 
 # News Article
 
-print("Before adding news articles route...")
+news_articles = NewsArticles()
 
-#app.add_route('/public/articles', NewsArticles())
-#app.add_route('/public/articles{article_id}', NewsArticles())
+app.add_route('/public/articles', news_articles)
+app.add_route('/public/articles{article_id}', news_articles)
 
