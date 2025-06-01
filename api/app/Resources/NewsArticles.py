@@ -42,7 +42,7 @@ class NewsArticles:
             ErrorHandling.processing_errors(err)
 
         _response = {
-            "Articles": _articles
+            "articles": _articles
         }
         resp.body = json.dumps(_response)
         resp.status = falcon.HTTP_OK
@@ -61,7 +61,7 @@ class NewsArticles:
         except pymysql.Error as db_error:
             ErrorHandling.database_errors(db_error)
 
-        _query = ('INSERT INTO news_articles (title, excerpt, author, category, image_base64, puyblished_date) '
+        _query = ('INSERT INTO news_articles (title, excerpt, author, category, image_base64, published_date) '
                   'VALUES (%s, %s, %s, %s, %s, %s)')
         _values = [
             req.media.get("title"), 
@@ -79,7 +79,7 @@ class NewsArticles:
             ErrorHandling.processing_errors(err)
 
         _response = {
-            "articles_id": _new_id
+            "article_id": _new_id
         }
         resp.body = json.dumps(_response)
         resp.status = falcon.HTTP_OK
