@@ -8,32 +8,6 @@ import img3 from '../assets/img3.png';
 
 function News() {
 
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch('http://api.nerdl.test/public/articles')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setArticles(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <p>Loading articles...</p>;
-  if (error) return <p>Error: {error}</p>;
-
-
   return (
     <>
     <h2 className='news-heading'>News</h2>
@@ -43,24 +17,12 @@ function News() {
           
           <div className='latest-news'>
               <h3>Latest News</h3>
-
             <div className='latest-news-container'>
-
-            {articles.slice(0,1).map((article) => (
-
               <article className="latest-news-article">
-                
                 <img src={img1} alt='Bitcoin image' />
-                <div className='news-content'>
-
-                <h3>{article.category}</h3>
-
-                {/*<h3>Bitcoin</h3>*/}
-                
-                {/*<p><span>&#127919;</span> Feeling Lucky: James Wynn's $1bn Bitcoin Bet Ends in a $60m Flameout</p>*/}
-                
-                <p>{article.excerpt}</p>
-              
+            <div className='news-content'>
+                <h3>Bitcoin</h3>
+                    <p><span>&#127919;</span> Feeling Lucky: James Wynn's $1bn Bitcoin Bet Ends in a $60m Flameout</p>
               <div className='read-more'>
                 <h3>Just Now</h3>
                 <button className='read-more-btn'>read more</button>
@@ -68,7 +30,6 @@ function News() {
               <h4>G.Lomas</h4>
                 </div>
               </article>
-            ))}
               </div>
           </div>
           </div>
