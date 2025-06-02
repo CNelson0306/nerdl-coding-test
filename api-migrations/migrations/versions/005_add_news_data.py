@@ -1,8 +1,8 @@
-
 from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.sql import func
 
+# Imported datetime to use for published date
 import datetime
 
 # Revision identifiers
