@@ -32,7 +32,7 @@ def upgrade():
                 "published_date": datetime.date(2025, 1, 1)
             },
             {
-                "title": "Engineering Solutions Driving Results",
+                "title": "Solutions Driving Results",
                 "excerpt": "Tech company specialising in building scalable software solutions.",
                 "author": "John Doe",
                 "category": "Business",
@@ -40,8 +40,8 @@ def upgrade():
                 "published_date": datetime.date(2025, 1, 1)
             },
             {
-                "title": "Blockchain Solutions Driving Real-World Impact",
-                "excerpt": "Cryto giants building secure, scalable blockchain infrastructure",
+                "title": "Blockchain Solutions",
+                "excerpt": "Crypto giants building secure, scalable blockchain infrastructure.",
                 "author": "Sue Doe",
                 "category": "Crypto",
                 "image_base64": None,

@@ -250,6 +250,7 @@ button:hover {
 
 /* CSS for mobile friendly */
 
+
 @media (max-width: 760px) {
   .news-section {
     flex-direction: column;
@@ -280,7 +281,7 @@ button:hover {
   }
 
   button {
-    width: 100%;
+    width: 80%;
   }
 }
 

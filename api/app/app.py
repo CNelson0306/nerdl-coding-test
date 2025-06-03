@@ -13,6 +13,7 @@ from Resources.NewsArticles import NewsArticles
 # Middleware
 cors_middleware = HandleCORS()
 
+
 cors = CORS(
     allow_all_origins=True,
     allow_all_headers=True,
@@ -21,10 +22,16 @@ cors = CORS(
     expose_headers_list=['*']
 )
 
+
 # Create the Falcon application with middleware
-app = falcon.App(middleware=[
-    cors.middleware,
-])
+app = falcon.App()  
+
+    # This was the issue with the headers
+
+    #(middleware=[
+    #cors.middleware,
+#])
+
 
 
 # Resources
